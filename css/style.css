@@ -97,6 +97,10 @@
     gap: 1.2rem;
 }
 
+.card-remedie p {
+    text-align: center;
+}
+
 .card-remedie .span {
     font-size: 1.5rem;
 }
