@@ -60,7 +60,7 @@
 
 .section-remedies {
     overflow-y: scroll;
-    height: 85vh;
+    height: 60%;
     width: 100%;
     border-radius: 10px;
 }
@@ -87,7 +87,16 @@
 .card-remedie {
     background-color: #EFEFEF;
     margin: 0.5rem auto;
-    width: 34rem;
+    width: 85%;
     height: 17rem;
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+}
+
+.card-remedie .span {
+    font-size: 1.5rem;
 }
