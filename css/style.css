@@ -44,7 +44,7 @@
 .btn-add {
     text-align: center;
     width: 75%;
-    height: 7rem;
+    height: 5rem;
 
     font-size: 2.5rem;
     color: #fff;
@@ -87,7 +87,7 @@
 .card-remedie {
     background-color: #EFEFEF;
     margin: 0.5rem auto;
-    width: 85%;
+    width: 90%;
     height: 17rem;
     border-radius: 10px;
     display: flex;
