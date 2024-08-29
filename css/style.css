@@ -7,7 +7,7 @@
 .h1 {
     text-align: center;
     color: #fff;
-    font-size: 2.8rem;
+    font-size: 2rem;
     font-family: "Inter", sans-serif;
     font-optical-sizing: auto;
     font-weight: bold;
@@ -17,6 +17,9 @@
 .body {
     overflow-x: hidden;
     overflow-y: hidden;
+    justify-content: space-between;
+    flex-direction: column;
+    display: flex;
 }
 
 .gradient {
@@ -44,9 +47,9 @@
 .btn-add {
     text-align: center;
     width: 75%;
-    height: 5rem;
+    padding: 1rem;
 
-    font-size: 2.5rem;
+    font-size: 2rem;
     color: #fff;
     background-color: #50A7FF;
     border-radius: 10px;
@@ -60,7 +63,7 @@
 
 .section-remedies {
     overflow-y: scroll;
-    height: 60%;
+    height: 83%;
     width: 100%;
     border-radius: 10px;
 }
