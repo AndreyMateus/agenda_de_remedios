@@ -131,6 +131,7 @@ function createFormAddRemedie() {
 
     // Botão de exclusão
     const btnRemoveForm = document.createElement('button');
+    btnRemoveForm.type = "button";
     btnRemoveForm.classList.add('cancel');
     btnRemoveForm.innerText = "Cancelar";
 
