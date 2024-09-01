@@ -8,6 +8,11 @@
     max-width: 95dvw;
     margin: 0 auto;
     border-radius: 10px;
+    z-index: 10;
+
+    position: absolute;
+    top: 2.5rem;
+    left: .5rem;
 }
 
 .container-name {
