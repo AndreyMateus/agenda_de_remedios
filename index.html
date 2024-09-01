@@ -11,17 +11,20 @@
         <link
             href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Sarala:wght@400;700&display=swap"
             rel="stylesheet">
+        <link rel="stylesheet" href="css/add-remedie.css">
         <script src="js/main.js" defer></script>
     </head>
 
     <body class="gradient body">
         <h1 class="h1">Agenda de Remédios</h1>
-        <section class="section-remedies">
+        <!-- <section class="section-remedies">
             <article class="card-remedie">
                 <h2 class="sarala-regular"><span class="sarala-bold">Nome:</span> Clonazepam</h2>
                 <p>
-                    <span class="sarala-bold">Data e Hora: </span> <span class="sarala-regular span">25/08/2024</span>
-                    <span class="sarala-bold">em</span> <span class="sarala-regular">20:50</span>
+                    <span class="sarala-bold">Data: </span> <span class="sarala-regular span">25/08/2024</span>
+                </p>
+                <p>
+                    <span class="sarala-bold">Hora: </span> <span class="sarala-regular">20:50</span>
                 </p>
                 <p>
                     <span class="sarala-bold">Dosagem: </span><span class="sarala-regular">50MG</span>
@@ -31,66 +34,48 @@
                         noite,não tomar o genérico. </span>
                 </p>
             </article>
-            <article class="card-remedie">
-                <h2 class="sarala-regular"><span class="sarala-bold">Nome:</span> Clonazepam</h2>
-                <p>
-                    <span class="sarala-bold">Data e Hora: </span> <span class="sarala-regular span">25/08/2024</span>
-                    <span class="sarala-bold">em</span> <span class="sarala-regular">20:50</span>
+        </section> -->
+
+        <div class="card-add-remedie">
+            <div class="container-name">
+                <label for="name">Digite o nome do remédio:</label>
+                <input type="text" id="name" name="name">
+            </div>
+            <div class="container-dosage">
+                <label for="dosage">Digite a Dosagem do remédio:</label>
+                <input type="text" id="dosage" name="dosage">
+            </div>
+            <div class="container-description">
+                <label for="description">Descrição (Opcional)</label>
+                <textarea name="description" id="description" cols="30" rows="8"
+                    placeholder="Digite aqui alguma observação"></textarea>
+            </div>
+            <div class="container-ingetNow">
+                <p>Vai ingerir agora ?</p>
+                <div class="container-inputs">
+                    <div class="input-radio">
+                        <input type="radio" id="ingestNowYes" name="ingestNow" value="yes">
+                        <label for="ingestNowYes">Sim</label>
+                    </div>
+                    <div class="input-radio">
+                        <input type="radio" id="ingestNowNo" name="ingestNow" value="no">
+                        <label for="ingestNowNo">Não</label>
+                    </div>
+                </div>
+                <p class="observation">
+                    OBS: A Data e a Hora são pegos automaticamente do seu dispositivo.
                 </p>
-                <p>
-                    <span class="sarala-bold">Dosagem: </span><span class="sarala-regular">50MG</span>
-                </p>
-                <p>
-                    <span class="sarala-bold">Descrição: </span><span class="sarala-regular">Tomar ao amanhecer e a
-                        noite,não tomar o genérico. </span>
-                </p>
-            </article>
-            <article class="card-remedie">
-                <h2 class="sarala-regular"><span class="sarala-bold">Nome:</span> Clonazepam</h2>
-                <p>
-                    <span class="sarala-bold">Data e Hora: </span> <span class="sarala-regular span">25/08/2024</span>
-                    <span class="sarala-bold">em</span> <span class="sarala-regular">20:50</span>
-                </p>
-                <p>
-                    <span class="sarala-bold">Dosagem: </span><span class="sarala-regular">50MG</span>
-                </p>
-                <p>
-                    <span class="sarala-bold">Descrição: </span><span class="sarala-regular">Tomar ao amanhecer e a
-                        noite,não tomar o genérico. </span>
-                </p>
-            </article>
-            <article class="card-remedie">
-                <h2 class="sarala-regular"><span class="sarala-bold">Nome:</span> Clonazepam</h2>
-                <p>
-                    <span class="sarala-bold">Data e Hora: </span> <span class="sarala-regular span">25/08/2024</span>
-                    <span class="sarala-bold">em</span> <span class="sarala-regular">20:50</span>
-                </p>
-                <p>
-                    <span class="sarala-bold">Dosagem: </span><span class="sarala-regular">50MG</span>
-                </p>
-                <p>
-                    <span class="sarala-bold">Descrição: </span><span class="sarala-regular">Tomar ao amanhecer e a
-                        noite,não tomar o genérico. </span>
-                </p>
-            </article>
-            <article class="card-remedie">
-                <h2 class="sarala-regular"><span class="sarala-bold">Nome:</span> Clonazepam</h2>
-                <p>
-                    <span class="sarala-bold">Data e Hora: </span> <span class="sarala-regular span">25/08/2024</span>
-                    <span class="sarala-bold">em</span> <span class="sarala-regular">20:50</span>
-                </p>
-                <p>
-                    <span class="sarala-bold">Dosagem: </span><span class="sarala-regular">50MG</span>
-                </p>
-                <p>
-                    <span class="sarala-bold">Descrição: </span><span class="sarala-regular">Tomar ao amanhecer e a
-                        noite,não tomar o genérico. </span>
-                </p>
-            </article>
-        </section>
+            </div>
+            <button type="button" class="cancel">Cancelar</button>
+        </div>
+
+
+
+
+
 
         <div class="container-btn">
-            <button type="button" class="btn-add">Adicionar</button>
+            <button type="button" class="btn-add" id="btn-add">Adicionar</button>
         </div>
     </body>
 
