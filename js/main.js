@@ -181,6 +181,9 @@ function saveCardsLocalStorage() {
 
     // removendo o formulário da tela após confirmar.
     document.querySelector('.cancel').parentNode.remove();
+
+    const btnConfirm = document.getElementById('btn-add');
+    btnConfirm.innerText = "Adicionar";
 }
 
 function dataForCreateNewCardRemedie() {
