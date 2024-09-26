@@ -1,5 +1,6 @@
 document.getElementById('btn-add').addEventListener("click", insertFormOnHtml);
 
+// TODO: CONSERTAR o BUG que deixa abrir mais de um formulário de cadastro de remédio ao mesmo tempo.
 function insertFormOnHtml() {
     // Mudando o texto do botão e retirando o evento dele.
     const btnConfirm = document.getElementById('btn-add');
@@ -10,9 +11,8 @@ function insertFormOnHtml() {
     const newForm = createFormAddRemedie();
     document.body.appendChild(newForm);
 
-    // adicionando um novo evento ao botão que agora irá salvar.
+    //? adicionando um novo evento ao botão que agora irá salvar.
     document.getElementById('btn-add').addEventListener("click", saveCardsLocalStorage);
-
 
 }
 
@@ -79,7 +79,7 @@ function createFormAddRemedie() {
 
     divDescription.append(labelDescription, textAreaDescription);
 
-    // container ods inputs radio
+    // container dos inputs radio
     const divIngetNow = document.createElement('div');
     divIngetNow.classList.add("container-ingetNow");
     const p = document.createElement('p');
@@ -150,65 +150,101 @@ function removeForm(e) {
     document.getElementById('btn-add').addEventListener("click", insertFormOnHtml);
     document.getElementById('btn-add').innerText = "Adicionar";
 }
-// TODO: ler todos os CARDS(remedios) no HTML, transforma em OBJ, inserir em um array, e salvar esse array no local.
+
+function pickDateNow() {
+    const dayOfMoth = new Date().getDate();
+    // a contagem do mês começa em 0, por isso o +1;
+    const month = new Date().getMonth() + 1;
+    const year = new Date().getFullYear();
+
+    return `${dayOfMoth}/${month}/${year}`;
+}
+
+function pickTimeNow() {
+    const minutes = new Date().getMinutes();
+    const hours = new Date().getHours();
+    return `${hours}:${minutes}`;
+}
+
+// le os cards e salve em um array.
 function readCardRemedie() {
     const objsCardRemedies = [];
 
-    const namesCardRemedie = document.querySelectorAll('h2[date-name]');
-    const datesCardRemedie = document.querySelectorAll('[data-date]');
-    const timesCardRemedie = document.querySelectorAll('[data-time]');
+    const namesCardRemedie = document.querySelectorAll('h2[data-name] span');
+    const datesCardRemedie = document.querySelectorAll('span[data-date]');
+    const timesCardRemedie = document.querySelectorAll('span[data-time]');
+    const dosageCardRemedie = document.querySelectorAll('span[data-dosage]');
+    const descriptionCardRemedie = document.querySelectorAll('span[data-description]');
 
     for (let i = 0; i < namesCardRemedie.length; i++) {
         objsCardRemedies.push({
-            nameRemedie: namesCardRemedie[i].dataset.name,
-            dateRemedie: datesCardRemedie[i].dateset.date,
-            timeRemedie: timesCardRemedie[i].dataset.time,
+            nameRemedie: namesCardRemedie[i].textContent,
+            dateRemedie: datesCardRemedie[i].textContent,
+            timeRemedie: timesCardRemedie[i].textContent,
+            dosageRemedie: dosageCardRemedie[i].textContent,
+            descriptionRemedie: descriptionCardRemedie[i].textContent,
         });
     }
 
     return objsCardRemedies;
 }
 
+// pega o array com os OBJs que contém a informação dos CARDS e salva no localStorage (quando clicamos em CONFIRMAR no formulário).
 function saveCardsLocalStorage() {
+
     const newCardsToSave = readCardRemedie();
-    localStorage.setItem('cardsSaves', newCardsToSave);
+    const cardsToJSON = JSON.stringify(newCardsToSave);
+    localStorage.setItem('meusObjetos', cardsToJSON);
+
     document.getElementById('btn-add').removeEventListener("click", saveCardsLocalStorage);
     document.getElementById('btn-add').addEventListener("click", insertFormOnHtml);
 
-
-    // TODO: criando o novo card de remedio na tela.
+    // pega os dados do formulário, cria um card novo e passa pra eles.
     dataForCreateNewCardRemedie();
 
     // removendo o formulário da tela após confirmar.
-    document.querySelector('.cancel').parentNode.remove();
+    document.querySelector('.cancel')?.parentNode.remove();
 
     const btnConfirm = document.getElementById('btn-add');
     btnConfirm.innerText = "Adicionar";
+
 }
 
 function dataForCreateNewCardRemedie() {
-    const name = document.getElementById('name').value;
-    const dosage = document.getElementById("dosage").value;
-    const description = document.getElementById("description").value;
-    const ingestNow = document.querySelector(`input[name="ingestNow"]:checked`).value;
+    const name = document.getElementById('name');
+    const dosage = document.getElementById("dosage");
+    const description = document.getElementById("description");
+    const ingestNow = document.querySelector(`input[name="ingestNow"]:checked`);
 
-    // TODO: passar os dados para a função que cria um elemento de card na tela.
-    console.log(`Nome:${name}, Dosagem:${dosage}, Descrição:${description}, ingerir agora ?: ${ingestNow}`);
+    // valida os valores dos inputs.
+    const isValid = validateValueInputs(name, ingestNow);
 
-    createCardremedieInHtml({
-        name,
-        dosage,
-        description,
-        ingestNow,
-    });
+    if (isValid) {
+        createCardremedieInHtml({
+            name: name.value,
+            dosage: dosage.value,
+            description: description.value,
+            ingestNow: ingestNow.value,
+        });
+    }
+}
+
+function validateValueInputs(inputName, inputIngestNow) {
+    let flag = true;
+
+    if (!inputName?.value) {
+        flag = false;
+    } else if (!inputIngestNow?.value) {
+        flag = false;
+    }
+
+    return flag;
 }
 
 function createCardremedieInHtml(objCardRemedie) {
     const sectionRemedies = document.getElementById('section-remedies');
     const article = document.createElement('article');
     article.classList.add('card-remedie');
-
-    // <h2 class="sarala-regular" data-name="Clonazepam"><span class="sarala-bold">Nome:</span> Clonazepam</h2>;
 
     const h2 = document.createElement('h2');
     h2.classList.add("sarala-regular");
@@ -228,8 +264,22 @@ function createCardremedieInHtml(objCardRemedie) {
 
     const spanDateValue = document.createElement("span");
     spanDateValue.classList.add("sarala-regular");
-    spanDateValue.setAttribute('data-date', pickDateNow());
-    spanDateValue.innerText = pickDateNow();
+
+    // caso não vá ingerir na hora.
+    if (objCardRemedie.ingestNow === "no") {
+        spanDateValue.setAttribute('data-date', "Não ingeriu ainda");
+        spanDateValue.innerText = "Não ingeriu ainda";
+    } else {
+        // verificando se a data já está preenchida ou não.
+        if (objCardRemedie.date) {
+            spanDateValue.setAttribute('data-date', objCardRemedie.date);
+            spanDateValue.innerText = objCardRemedie.date;
+        } else {
+            spanDateValue.setAttribute('data-date', pickDateNow());
+            spanDateValue.innerText = pickDateNow();
+        };
+    }
+
     pDate.append(spanDate, spanDateValue);
 
     const pTime = document.createElement('p');
@@ -238,8 +288,21 @@ function createCardremedieInHtml(objCardRemedie) {
     spanTime.innerText = "Hora: ";
     const spanTimeValue = document.createElement("span");
     spanTimeValue.classList.add("sarala-regular");
-    spanTimeValue.setAttribute('data-time', pickTimeNow());
-    spanTimeValue.innerText = pickTimeNow();
+
+    // caso não vá ingerir na hora.
+    if (objCardRemedie.ingestNow === "no") {
+        spanTimeValue.setAttribute('data-time', "Não ingeriu ainda");
+        spanTimeValue.innerText = "Não ingeriu ainda";
+    } else {
+        // verificando se a HORA já está preenchida ou não.
+        if (objCardRemedie.time) {
+            spanTimeValue.setAttribute('data-time', objCardRemedie.time);
+            spanTimeValue.innerText = objCardRemedie.time;
+        } else {
+            spanTimeValue.setAttribute('data-time', pickTimeNow());
+            spanTimeValue.innerText = pickTimeNow();
+        }
+    }
 
     pTime.append(spanTime, spanTimeValue);
 
@@ -255,7 +318,6 @@ function createCardremedieInHtml(objCardRemedie) {
 
     pDosage.append(spanDosage, spanDosageValue);
 
-
     //  Descrição
     const pDescription = document.createElement("p");
     const spanDescription = document.createElement("span");
@@ -269,7 +331,6 @@ function createCardremedieInHtml(objCardRemedie) {
 
     pDescription.append(spanDescription, spanDescriptionValue);
 
-
     // Adicionando todos os elementos ao Pai(article')
     article.append(pDate, pTime, pDosage, pDescription);
 
@@ -278,22 +339,22 @@ function createCardremedieInHtml(objCardRemedie) {
 }
 
 function readLocalStorage() {
-    const remediesArray = localStorage.getItem('arrayRemedies');
+    const remediesArray = localStorage.getItem('meusObjetos');
+    const arrObjsCards = JSON.parse(remediesArray);
 
-    console.log(remediesArray);
+    for (let i = 0; i < arrObjsCards.length; i++) {
+        createCardremedieInHtml({
+            name: arrObjsCards[i].nameRemedie,
+            dosage: arrObjsCards[i].dosageRemedie,
+            description: arrObjsCards[i].descriptionRemedie,
+            date: arrObjsCards[i].dateRemedie,
+            time: arrObjsCards[i].timeRemedie
+        });
+    }
+
+    return arrObjsCards;
 }
 
-function pickDateNow() {
-    const dayOfMoth = new Date().getDate();
-    // a contagem do mês começa em 0, por isso o +1;
-    const month = new Date().getMonth() + 1;
-    const year = new Date().getFullYear();
-
-    return `${dayOfMoth}/${month}/${year}`;
-}
-
-function pickTimeNow() {
-    const minutes = new Date().getMinutes();
-    const hours = new Date().getHours();
-    return `${hours}:${minutes}`;
-}
+// lendo todos os dados no localStorage, criando os cards e colocando na tela.
+// será executada sempre que a página for aberta.
+readLocalStorage();
