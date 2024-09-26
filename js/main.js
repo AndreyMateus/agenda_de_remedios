@@ -241,9 +241,11 @@ function validateValueInputs(inputName, inputIngestNow) {
     return flag;
 }
 
+// TODO: resolver o BUG que o PRIMEIRO elemento/card não é salvo.
 function createCardremedieInHtml(objCardRemedie) {
     const sectionRemedies = document.getElementById('section-remedies');
     const article = document.createElement('article');
+    article.addEventListener("dblclick", hideContent);
     article.classList.add('card-remedie');
 
     const h2 = document.createElement('h2');
@@ -336,6 +338,59 @@ function createCardremedieInHtml(objCardRemedie) {
 
     // Adicionando o card completo na seção
     sectionRemedies.appendChild(article);
+}
+
+
+//  adiciona um evento a todos os cards criados que conterá essa função.
+function hideContent(event) {
+    const article = event.currentTarget;
+    const chrildrens = Array.from(article.children);
+
+    // percorrendo TODOS os elementos e deixando eles invisiveis, com opacidade baixa.
+    chrildrens.forEach(child => {
+        child.style.opacity = 0;
+    });
+
+    // passando os elementos que tiveram sua OPACIDADE REDUZIDA.
+    createBtnsRemove(article, chrildrens);
+}
+
+function createBtnsRemove(parent, chrildrens) {
+    parent.style.position = "relative";
+    const title = document.createElement("h2");
+    title.classList.add("sarala-bold");
+    title.textContent = "Deseja Remover";
+
+    const box = document.createElement("div");
+    box.classList.add("box");
+
+    const btnYes = document.createElement("button");
+    btnYes.textContent = "Sim";
+    btnYes.classList.add("btn-remove-yes", "sarala-bold");
+    btnYes.addEventListener("click", removeCard);
+
+    const btnNo = document.createElement("button");
+    btnNo.textContent = "Não";
+    btnNo.classList.add("btn-remove-no", "sarala-bold");
+    //  dontRemoveCaard deve restaurar o card ao estado inicial.
+    btnNo.addEventListener("click", function dontRemoveCard(e) {
+        const boxParent = e.currentTarget.parentNode;
+        boxParent.remove();
+
+        chrildrens.forEach(child => {
+            child.style.opacity = 1;
+        });
+    });
+
+    box.append(title, btnYes, btnNo);
+    parent.append(box);
+}
+
+//  adiciona um evento a todos os cards criados que conterá essa função para remover a si mesmos.
+function removeCard(event) {
+    const card = event.currentTarget.parentNode.parentNode;
+    card.remove();
+    saveCardsLocalStorage();
 }
 
 function readLocalStorage() {
