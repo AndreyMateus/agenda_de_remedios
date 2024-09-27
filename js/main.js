@@ -177,8 +177,9 @@ function readCardRemedie() {
     const timesCardRemedie = document.querySelectorAll('span[data-time]');
     const dosageCardRemedie = document.querySelectorAll('span[data-dosage]');
     const descriptionCardRemedie = document.querySelectorAll('span[data-description]');
+    console.log(namesCardRemedie);
 
-    // TODO: resolver o BUG -> o último card não salva.
+    // TODO: resolver o BUG -> o último card não salva (tem que atualizar em tempo real).
 
     for (let index = 0; index < sectionRemediesChilds.children.length; index++) {
         objsCardRemedies.push({
@@ -197,11 +198,6 @@ function readCardRemedie() {
 // pega o array com os OBJs que contém a informação dos CARDS e salva no localStorage (quando clicamos em CONFIRMAR no formulário).
 function saveCardsLocalStorage() {
 
-    const newCardsToSave = readCardRemedie();
-
-    const cardsToJSON = JSON.stringify(newCardsToSave);
-    localStorage.setItem('meusObjetos', cardsToJSON);
-
     document.getElementById('btn-add').removeEventListener("click", saveCardsLocalStorage);
     document.getElementById('btn-add').addEventListener("click", insertFormOnHtml);
 
@@ -214,6 +210,11 @@ function saveCardsLocalStorage() {
     const btnConfirm = document.getElementById('btn-add');
     btnConfirm.innerText = "Adicionar";
 
+    //! IMPORTANTE - é necessário que os CARDS só sejam PEGOS após o NOVO CARD ser CRIADO, caso contrário esse novo CARD ficará FALTANDO, por isso o "readCardRemedie()" e salvamento está aqui embaixo.
+    const newCardsToSave = readCardRemedie();
+
+    const cardsToJSON = JSON.stringify(newCardsToSave);
+    localStorage.setItem('meusObjetos', cardsToJSON);
 }
 
 function dataForCreateNewCardRemedie() {
@@ -247,7 +248,6 @@ function validateValueInputs(inputName, inputIngestNow) {
     return flag;
 }
 
-// TODO: resolver o BUG que o PRIMEIRO elemento/card não é salvo.
 function createCardremedieInHtml(objCardRemedie) {
     const sectionRemedies = document.getElementById('section-remedies');
     const article = document.createElement('article');
@@ -346,7 +346,6 @@ function createCardremedieInHtml(objCardRemedie) {
     sectionRemedies.appendChild(article);
 }
 
-
 //  adiciona um evento a todos os cards criados que conterá essa função.
 function hideContent(event) {
     const article = event.currentTarget;
@@ -396,6 +395,7 @@ function createBtnsRemove(parent, chrildrens) {
 function removeCard(event) {
     const card = event.currentTarget.parentNode.parentNode;
     card.remove();
+    // TODO: implementar uma nova função que faça a mesma coisa, porém não receba parametros
     saveCardsLocalStorage();
 }
 
