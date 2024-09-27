@@ -170,20 +170,25 @@ function pickTimeNow() {
 function readCardRemedie() {
     const objsCardRemedies = [];
 
+    const sectionRemediesChilds = document.getElementById("section-remedies");
+
     const namesCardRemedie = document.querySelectorAll('h2[data-name] span');
     const datesCardRemedie = document.querySelectorAll('span[data-date]');
     const timesCardRemedie = document.querySelectorAll('span[data-time]');
     const dosageCardRemedie = document.querySelectorAll('span[data-dosage]');
     const descriptionCardRemedie = document.querySelectorAll('span[data-description]');
 
-    for (let i = 0; i < namesCardRemedie.length; i++) {
+    // TODO: resolver o BUG -> o último card não salva.
+
+    for (let index = 0; index < sectionRemediesChilds.children.length; index++) {
         objsCardRemedies.push({
-            nameRemedie: namesCardRemedie[i].textContent,
-            dateRemedie: datesCardRemedie[i].textContent,
-            timeRemedie: timesCardRemedie[i].textContent,
-            dosageRemedie: dosageCardRemedie[i].textContent,
-            descriptionRemedie: descriptionCardRemedie[i].textContent,
+            nameRemedie: namesCardRemedie[index]?.textContent,
+            dateRemedie: datesCardRemedie[index]?.textContent,
+            timeRemedie: timesCardRemedie[index]?.textContent,
+            dosageRemedie: dosageCardRemedie[index]?.textContent,
+            descriptionRemedie: descriptionCardRemedie[index]?.textContent,
         });
+
     }
 
     return objsCardRemedies;
@@ -193,6 +198,7 @@ function readCardRemedie() {
 function saveCardsLocalStorage() {
 
     const newCardsToSave = readCardRemedie();
+
     const cardsToJSON = JSON.stringify(newCardsToSave);
     localStorage.setItem('meusObjetos', cardsToJSON);
 
