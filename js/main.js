@@ -1,10 +1,10 @@
 document.getElementById('btn-add').addEventListener("click", insertFormOnHtml);
 
-// TODO: CONSERTAR o BUG que deixa abrir mais de um formulário de cadastro de remédio ao mesmo tempo.
 function insertFormOnHtml() {
     // Mudando o texto do botão e retirando o evento dele.
     const btnConfirm = document.getElementById('btn-add');
     btnConfirm.innerText = "Confirmar";
+    btnConfirm.style.backgroundColor = "#1FEB00";
     disableBtnCreateForm();
 
     //  criando o formulário e adicionando no body, para que apareça na tela.
@@ -149,6 +149,7 @@ function removeForm(e) {
     e.currentTarget.parentNode.remove();
     document.getElementById('btn-add').addEventListener("click", insertFormOnHtml);
     document.getElementById('btn-add').innerText = "Adicionar";
+    document.getElementById('btn-add').style.backgroundColor = "#50A7FF";
 }
 
 function pickDateNow() {
@@ -177,9 +178,6 @@ function readCardRemedie() {
     const timesCardRemedie = document.querySelectorAll('span[data-time]');
     const dosageCardRemedie = document.querySelectorAll('span[data-dosage]');
     const descriptionCardRemedie = document.querySelectorAll('span[data-description]');
-    console.log(namesCardRemedie);
-
-    // TODO: resolver o BUG -> o último card não salva (tem que atualizar em tempo real).
 
     for (let index = 0; index < sectionRemediesChilds.children.length; index++) {
         objsCardRemedies.push({
@@ -197,7 +195,6 @@ function readCardRemedie() {
 
 // pega o array com os OBJs que contém a informação dos CARDS e salva no localStorage (quando clicamos em CONFIRMAR no formulário).
 function saveCardsLocalStorage() {
-
     document.getElementById('btn-add').removeEventListener("click", saveCardsLocalStorage);
     document.getElementById('btn-add').addEventListener("click", insertFormOnHtml);
 
@@ -209,6 +206,7 @@ function saveCardsLocalStorage() {
 
     const btnConfirm = document.getElementById('btn-add');
     btnConfirm.innerText = "Adicionar";
+    btnConfirm.style.backgroundColor = "#50A7FF";
 
     //! IMPORTANTE - é necessário que os CARDS só sejam PEGOS após o NOVO CARD ser CRIADO, caso contrário esse novo CARD ficará FALTANDO, por isso o "readCardRemedie()" e salvamento está aqui embaixo.
     const newCardsToSave = readCardRemedie();
@@ -395,7 +393,6 @@ function createBtnsRemove(parent, chrildrens) {
 function removeCard(event) {
     const card = event.currentTarget.parentNode.parentNode;
     card.remove();
-    // TODO: implementar uma nova função que faça a mesma coisa, porém não receba parametros
     saveCardsLocalStorage();
 }
 
