@@ -249,8 +249,11 @@ function validateValueInputs(inputName, inputIngestNow) {
 function createCardremedieInHtml(objCardRemedie) {
     const sectionRemedies = document.getElementById('section-remedies');
     const article = document.createElement('article');
-    article.addEventListener("dblclick", hideContent);
     article.classList.add('card-remedie');
+    article.addEventListener("dblclick", hideContent);
+    article.addEventListener("auxclick", function (e) {
+        e.currentTarget.style.backgroundColor = "green";
+    });
 
     const h2 = document.createElement('h2');
     h2.classList.add("sarala-regular");
