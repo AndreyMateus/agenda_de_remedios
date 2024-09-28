@@ -256,7 +256,6 @@ function createFormConfirm(myCard) {
             spanChilds.push(childElement.children[1].textContent);
         }
     });
-    console.log(spanChilds);
 
     const boxForm = document.createElement("div");
     boxForm.classList.add("box-form");
@@ -331,7 +330,8 @@ function createFormConfirm(myCard) {
     btnYes.textContent = "Sim";
     btnYes.classList.add("btn-remove-yes", "sarala-bold");
     btnYes.addEventListener("click", (e) => {
-        console.log(e.currentTarget.parentNode.parentNode.parentNode);
+        // resetando o evento que seleciona o conteúdo.
+        e.preventDefault();
         e.currentTarget.parentNode.parentNode.parentNode.remove();
 
         // passando os dados para a função que irá criar um card novo, só que baseado no card antigo.
