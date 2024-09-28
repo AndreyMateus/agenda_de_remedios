@@ -226,10 +226,10 @@ function dataForCreateNewCardRemedie() {
 
     if (isValid) {
         createCardremedieInHtml({
-            name: name.value,
-            dosage: dosage.value,
-            description: description.value,
-            ingestNow: ingestNow.value,
+            name: name?.value,
+            dosage: dosage?.value,
+            description: description?.value,
+            ingestNow: ingestNow?.value,
         });
     }
 }
@@ -246,22 +246,154 @@ function validateValueInputs(inputName, inputIngestNow) {
     return flag;
 }
 
+function createFormConfirm(myCard) {
+    const myCardArray = Array.from(myCard.children);
+    const nameCard = myCardArray[0].textContent;
+    const spanChilds = [];
+    // pegando o "textContent" do CAMPOS/INPUTS do cards e colocando no formulário que gerará um novo card.
+    myCardArray.forEach(childElement => {
+        if (childElement.tagName === "P") {
+            spanChilds.push(childElement.children[1].textContent);
+        }
+    });
+    console.log(spanChilds);
+
+    const boxForm = document.createElement("div");
+    boxForm.classList.add("box-form");
+
+    const box = document.createElement("div");
+    box.classList.add("card-remedie", "formConfirm");
+    box.style.position = "absolute";
+
+    const h2 = document.createElement("h2");
+    h2.textContent = "Você está ingerindo agora ?";
+    h2.style.color = "#000";
+    h2.classList.add("h1");
+
+    const divName = document.createElement("div");
+    const labelName = document.createElement("label");
+    labelName.textContent = "Nome";
+    labelName.setAttribute("for", "inputName");
+    labelName.classList.add("sarala-bold");
+
+    const inputName = document.createElement("input");
+    inputName.setAttribute("id", "inputName");
+    inputName.classList.add("inputForm");
+    inputName.value = nameCard;
+    divName.append(labelName, inputName);
+
+    //! As datas e horas não poderão ser alteradas.
+    const divDate = document.createElement("div");
+    const pDate = document.createElement("p");
+    pDate.textContent = `Data: ${pickDateNow()}`;
+    pDate.classList.add("sarala-bold");
+
+    divDate.append(pDate);
+
+    const divTime = document.createElement("div");
+    const pTime = document.createElement("p");
+    pTime.textContent = `Hora: ${pickTimeNow()}`;
+    pTime.classList.add("sarala-bold");
+    divTime.append(pTime);
+
+    const divDosage = document.createElement("div");
+    const labelDosage = document.createElement("label");
+    labelDosage.textContent = "Dosagem";
+    labelDosage.classList.add("sarala-bold");
+    labelDosage.setAttribute("for", "dosage");
+    const inputDosage = document.createElement("input");
+    inputDosage.setAttribute("id", "dosage");
+    inputDosage.classList.add("inputForm");
+    inputDosage.value = spanChilds[2];
+    divDosage.append(labelDosage, inputDosage);
+
+    const divDescription = document.createElement("div");
+    const labelDescription = document.createElement("label");
+    labelDescription.setAttribute("for", "textDescription");
+    labelDescription.classList.add("sarala-bold");
+    labelDescription.textContent = "Descrição";
+    const textAreaDescription = document.createElement("textarea");
+    textAreaDescription.setAttribute("id", "textDescription");
+    textAreaDescription.value = spanChilds[3];
+    divDescription.append(labelDescription, textAreaDescription);
+
+    const divObs = document.createElement("div");
+    const pObs = document.createElement("p");
+    pObs.textContent = "OBS: A Data e a Hora são pegos automaticamente do seu dispositivo.";
+    pObs.classList.add("sarala-bold");
+    divObs.append(pObs);
+
+    const containerBtns = document.createElement("div");
+
+    const btnYes = document.createElement("button");
+    btnYes.textContent = "Sim";
+    btnYes.classList.add("btn-remove-yes", "sarala-bold");
+    btnYes.addEventListener("click", () => {
+        // TODO:  mandar para a função que cria um CARD.
+        // createCardremedieInHtml({
+        //     name: inputName.value,
+        //     dosage: inputDosage.value,
+        //     description: textAreaDescription.value,
+        // });
+        console.log({
+            name: inputName.value,
+            dosage: inputDosage.value,
+            description: textAreaDescription.value,
+        });
+    });
+    btnYes.addEventListener("click", removeCard);
+
+    const btnNo = document.createElement("button");
+    btnNo.textContent = "Não";
+    btnNo.classList.add("btn-remove-no", "sarala-bold");
+    btnNo.addEventListener("click", function deleteForm(e) {
+        boxForm.remove();
+
+        const allChildsSectionRemedies = document.getElementById("section-remedies").children;
+        Array.from(allChildsSectionRemedies).forEach(child => {
+            child.style.opacity = 1;
+        });
+    });
+
+    containerBtns.append(btnYes, btnNo);
+
+    box.append(h2, divName, divDate, divTime, divDosage, divDescription, divObs, containerBtns);
+    boxForm.append(box);
+
+    return boxForm;
+}
+
 function createCardremedieInHtml(objCardRemedie) {
     const sectionRemedies = document.getElementById('section-remedies');
     const article = document.createElement('article');
     article.classList.add('card-remedie');
     article.addEventListener("dblclick", hideContent);
-    article.addEventListener("auxclick", function (e) {
-        e.currentTarget.style.backgroundColor = "green";
+
+    // evento que simulará o CLICK LONGO.
+    let timer;
+    article.addEventListener('touchstart', () => {
+        timer = setTimeout(() => {
+            const allChildsSectionRemedies = sectionRemedies.children;
+            Array.from(allChildsSectionRemedies).forEach(child => {
+                child.style.opacity = 0;
+            });
+
+            const formConfirm = createFormConfirm(article);
+            sectionRemedies.append(formConfirm);
+
+        }, 550);
+    });
+    article.addEventListener('touchend', () => {
+        clearTimeout(timer);
     });
 
     const h2 = document.createElement('h2');
     h2.classList.add("sarala-regular");
-    h2.setAttribute('data-name', objCardRemedie.name);
+    h2.setAttribute('data-name', objCardRemedie?.name);
 
     const spanTitle = document.createElement("span");
     spanTitle.classList.add("sarala-bold");
-    spanTitle.innerText = objCardRemedie.name;
+    spanTitle.innerText = objCardRemedie?.name;
     h2.appendChild(spanTitle);
 
     article.append(h2);
