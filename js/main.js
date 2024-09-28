@@ -328,17 +328,21 @@ function createFormConfirm(myCard) {
     const btnYes = document.createElement("button");
     btnYes.textContent = "Sim";
     btnYes.classList.add("btn-remove-yes", "sarala-bold");
-    btnYes.addEventListener("click", () => {
-        // TODO:  mandar para a função que cria um CARD.
-        // createCardremedieInHtml({
-        //     name: inputName.value,
-        //     dosage: inputDosage.value,
-        //     description: textAreaDescription.value,
-        // });
-        console.log({
+    btnYes.addEventListener("click", (e) => {
+        console.log(e.currentTarget.parentNode.parentNode.parentNode);
+        e.currentTarget.parentNode.parentNode.parentNode.remove();
+
+        // passando os dados para a função que irá criar um card novo, só que baseado no card antigo.
+        createCardremedieInHtml({
             name: inputName.value,
             dosage: inputDosage.value,
             description: textAreaDescription.value,
+        });
+
+        // retirando a INVISIBILIDADE, opacidade dos elementos.
+        const allChildsSectionRemedies = document.getElementById("section-remedies").children;
+        Array.from(allChildsSectionRemedies).forEach(child => {
+            child.style.opacity = 1;
         });
     });
     btnYes.addEventListener("click", removeCard);
@@ -393,7 +397,7 @@ function createCardremedieInHtml(objCardRemedie) {
 
     const spanTitle = document.createElement("span");
     spanTitle.classList.add("sarala-bold");
-    spanTitle.innerText = objCardRemedie?.name;
+    spanTitle.innerText = objCardRemedie.name;
     h2.appendChild(spanTitle);
 
     article.append(h2);
@@ -455,7 +459,7 @@ function createCardremedieInHtml(objCardRemedie) {
     const spanDosageValue = document.createElement("span");
     spanDosageValue.classList.add("sarala-regular");
     spanDosageValue.setAttribute('data-dosage', objCardRemedie.dosage);
-    spanDosageValue.innerText = objCardRemedie.dosage;
+    spanDosageValue.innerText = objCardRemedie.dosage ? objCardRemedie.dosage : "";
 
     pDosage.append(spanDosage, spanDosageValue);
 
@@ -468,7 +472,7 @@ function createCardremedieInHtml(objCardRemedie) {
     const spanDescriptionValue = document.createElement("span");
     spanDescriptionValue.classList.add("sarala-regular");
     spanDescriptionValue.setAttribute('data-description', objCardRemedie.description);
-    spanDescriptionValue.innerText = objCardRemedie.description;
+    spanDescriptionValue.innerText = objCardRemedie.description ? objCardRemedie.description : "";
 
     pDescription.append(spanDescription, spanDescriptionValue);
 
