@@ -271,6 +271,7 @@ function createFormConfirm(myCard) {
     h2.classList.add("h1");
 
     const divName = document.createElement("div");
+    divName.classList.add("containerInputs");
     const labelName = document.createElement("label");
     labelName.textContent = "Nome";
     labelName.setAttribute("for", "inputName");
@@ -278,7 +279,6 @@ function createFormConfirm(myCard) {
 
     const inputName = document.createElement("input");
     inputName.setAttribute("id", "inputName");
-    inputName.classList.add("inputForm");
     inputName.value = nameCard;
     divName.append(labelName, inputName);
 
@@ -297,17 +297,18 @@ function createFormConfirm(myCard) {
     divTime.append(pTime);
 
     const divDosage = document.createElement("div");
+    divDosage.classList.add("containerInputs");
     const labelDosage = document.createElement("label");
     labelDosage.textContent = "Dosagem";
     labelDosage.classList.add("sarala-bold");
     labelDosage.setAttribute("for", "dosage");
     const inputDosage = document.createElement("input");
     inputDosage.setAttribute("id", "dosage");
-    inputDosage.classList.add("inputForm");
     inputDosage.value = spanChilds[2];
     divDosage.append(labelDosage, inputDosage);
 
     const divDescription = document.createElement("div");
+    divDescription.classList.add("containerTextArea");
     const labelDescription = document.createElement("label");
     labelDescription.setAttribute("for", "textDescription");
     labelDescription.classList.add("sarala-bold");
@@ -324,6 +325,7 @@ function createFormConfirm(myCard) {
     divObs.append(pObs);
 
     const containerBtns = document.createElement("div");
+    containerBtns.classList.add("containerBts");
 
     const btnYes = document.createElement("button");
     btnYes.textContent = "Sim";

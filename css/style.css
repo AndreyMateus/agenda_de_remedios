@@ -167,17 +167,42 @@ button:active {
     height: 100%;
 }
 
+.box-form h2 {
+    font-size: 1.2rem;
+}
+
+.box-form input {
+    width: 12rem;
+}
+
+.containerBts {
+    display: flex;
+    gap: .5rem;
+}
+
+.box-form button {
+    width: 6rem;
+}
+
+.box-form textarea {
+    width: 15rem;
+}
+
 .formConfirm {
     position: absolute;
-    top: 4rem;
-
-    height: 75%;
+    top: 2.5rem;
     margin: auto;
     z-index: 100;
 }
 
-.inputForm {
-    max-width: 50%;
+.containerInputs {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
 }
 
-/* TODO: terminar de ageitar os CONTÉUDOS do FORMULÁRIO que repete os CARDS*/
+.containerTextArea {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
