@@ -488,9 +488,6 @@ function createCardremedieInHtml(objCardRemedie) {
     // Adicionando todos os elementos ao Pai(article')
     article.append(pDate, pTime, pDosage, pDescription);
 
-    // resetando o evento que seleciona o conteúdo pelo celular.
-    article.addEventListener("touchstart", (e) => e.preventDefault());
-
     // Adicionando o card completo na seção
     sectionRemedies.appendChild(article);
 }
