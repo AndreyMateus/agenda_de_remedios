@@ -330,8 +330,6 @@ function createFormConfirm(myCard) {
     btnYes.textContent = "Sim";
     btnYes.classList.add("btn-remove-yes", "sarala-bold");
     btnYes.addEventListener("click", (e) => {
-        // resetando o evento que seleciona o conteúdo.
-        e.preventDefault();
         e.currentTarget.parentNode.parentNode.parentNode.remove();
 
         // passando os dados para a função que irá criar um card novo, só que baseado no card antigo.
@@ -480,6 +478,9 @@ function createCardremedieInHtml(objCardRemedie) {
 
     // Adicionando todos os elementos ao Pai(article')
     article.append(pDate, pTime, pDosage, pDescription);
+
+    // resetando o evento que seleciona o conteúdo pelo celular.
+    article.addEventListener("touchstart", (e) => e.preventDefault());
 
     // Adicionando o card completo na seção
     sectionRemedies.appendChild(article);
