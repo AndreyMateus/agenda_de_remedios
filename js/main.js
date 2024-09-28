@@ -247,6 +247,9 @@ function validateValueInputs(inputName, inputIngestNow) {
 }
 
 function createFormConfirm(myCard) {
+    // ocultando o botão de adicionar mais elementos, para que não tenha um bug de um formulário abrir em cima do outro.
+    document.getElementById("btn-add").style.opacity = "0";
+
     const myCardArray = Array.from(myCard.children);
     const nameCard = myCardArray[0].textContent;
     const spanChilds = [];
@@ -339,6 +342,9 @@ function createFormConfirm(myCard) {
             description: textAreaDescription.value,
         });
 
+        // desocultando o botão de adicionar novos cards de remédio.
+        document.getElementById("btn-add").style.opacity = "1";
+
         // retirando a INVISIBILIDADE, opacidade dos elementos.
         const allChildsSectionRemedies = document.getElementById("section-remedies").children;
         Array.from(allChildsSectionRemedies).forEach(child => {
@@ -352,6 +358,9 @@ function createFormConfirm(myCard) {
     btnNo.classList.add("btn-remove-no", "sarala-bold");
     btnNo.addEventListener("click", function deleteForm(e) {
         boxForm.remove();
+
+        // desocultando o botão de adicionar novos cards de remédio.
+        document.getElementById("btn-add").style.opacity = "1";
 
         const allChildsSectionRemedies = document.getElementById("section-remedies").children;
         Array.from(allChildsSectionRemedies).forEach(child => {

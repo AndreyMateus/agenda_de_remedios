@@ -90,6 +90,7 @@
 }
 
 .card-remedie {
+    overflow-x: hidden;
     background-color: #EFEFEF;
     margin: 0.5rem auto;
     width: 90%;
