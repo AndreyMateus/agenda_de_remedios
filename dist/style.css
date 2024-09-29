@@ -1,0 +1,345 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Desabilitar a seleção de conteúdo */
+body {
+    -webkit-user-select: none;
+    /* Safari/Chrome */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* IE/Edge */
+    user-select: none;
+    /* Padrão */
+}
+
+
+.h1 {
+    text-align: center;
+    color: #fff;
+    font-size: 1.6rem;
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: bold;
+    text-shadow: 0 0 5px #ffffff;
+}
+
+.body {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    justify-content: space-between;
+    flex-direction: column;
+    display: flex;
+    z-index: 2;
+}
+
+.gradient {
+    width: 100dvw;
+    height: 100dvh;
+    background: linear-gradient(334deg, #6b97f7, #7525e2, #f7137e);
+    background-size: 180% 180%;
+    animation: gradient-animation 6s ease infinite;
+}
+
+@keyframes gradient-animation {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.btn-add {
+    text-align: center;
+    width: 75%;
+    padding: 0.6rem;
+    text-shadow: black 0px 0px 5px;
+
+    font-size: 1.5rem;
+    color: #fff;
+    background-color: #50A7FF;
+    border-radius: 10px;
+    border-style: none;
+    margin: 0 auto;
+
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: bold;
+}
+
+.section-remedies {
+    overflow-y: scroll;
+    height: 70dvh;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.sarala-regular {
+    font-family: "Sarala", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.sarala-bold {
+    font-family: "Sarala", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.container-btn {
+    height: 10dvh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.card-remedie {
+    overflow-x: hidden;
+    background-color: #EFEFEF;
+    margin: 0.5rem auto;
+    width: 90%;
+    height: fit-content;
+    padding: .3rem;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+}
+
+.card-remedie p {
+    text-align: center;
+}
+
+.card-remedie .span {
+    font-size: 1.5rem;
+}
+
+input {
+    font-size: 1.6rem;
+    padding: .8rem;
+    text-align: center;
+}
+
+textarea {
+    font-size: 1.6rem;
+}
+
+textarea::placeholder {
+    font-size: 1.2rem;
+}
+
+button:active {
+    box-shadow: 0 0 20px 5px #3378be;
+}
+
+.cancel:active {
+    box-shadow: 0 0 20px #ff0000;
+}
+
+.btn-remove-yes {
+    font-size: 1.2rem;
+    padding: .4rem;
+    width: 10rem;
+    background-color: #00FF40;
+}
+
+.btn-remove-no {
+    font-size: 1.2rem;
+    padding: .4rem;
+    width: 10rem;
+    background-color: #FF0202;
+}
+
+.box {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    gap: .5rem;
+}
+
+.box-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.box-form h2 {
+    font-size: 1.2rem;
+}
+
+.box-form input {
+    width: 12rem;
+}
+
+.containerBts {
+    display: flex;
+    gap: .5rem;
+}
+
+.box-form button {
+    width: 6rem;
+}
+
+.box-form textarea {
+    width: 15rem;
+}
+
+.formConfirm {
+    position: absolute;
+    top: 2.5rem;
+    margin: auto;
+    z-index: 100;
+}
+
+.containerInputs {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+}
+
+.containerTextArea {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+.card-add-remedie {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #EFEFEF;
+    height: 80dvh;
+    max-width: 95dvw;
+    margin: 0 auto;
+    border-radius: 10px;
+    z-index: 10;
+
+    position: absolute;
+    top: 2.5rem;
+    left: .5rem;
+}
+
+.container-name {
+    text-align: center;
+}
+
+.container-name label {
+    font-family: "Sarala", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.container-name input {
+    height: 5dvh;
+    width: 80dvw;
+}
+
+.container-dosage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+}
+
+.container-dosage label {
+    font-family: "Sarala", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.container-dosage input {
+    height: 5dvh;
+    width: 30dvw;
+}
+
+.container-description {
+    text-align: center;
+    font-family: "Sarala", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.container-description textarea {
+    max-width: 80dvw;
+    min-width: 80dvw;
+    max-height: 20dvh;
+    min-height: 20dvh;
+
+}
+
+.container-ingetNow {
+    border: 1px solid #000;
+    max-width: 95%;
+    margin: 0 auto;
+    background-color: #EFEFEF;
+}
+
+.container-ingetNow p {
+    text-align: center;
+    font-family: "Sarala", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.container-inputs {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: .8rem;
+    align-items: center;
+}
+
+.input-radio {
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    justify-content: center;
+    align-items: center;
+    gap: .4rem;
+    padding: 0.1rem;
+    font-family: "Sarala", sans-serif;
+    font-weight: 700;
+    font-size: 1.4rem;
+    border: 1px solid #000;
+    background-color: #CDCDCD;
+    max-height: 2rem;
+    width: 5.5rem;
+    text-align: center;
+}
+
+.observation {
+    font-weight: bold;
+    font-size: .9rem;
+    margin-top: .3rem;
+}
+
+.cancel {
+    display: block;
+    text-align: center;
+    padding: 0.4rem;
+    background-color: #f00;
+    border: none;
+    font-size: 1.4rem;
+    margin: 1rem auto;
+    border-radius: 10px;
+    color: #EFEFEF;
+}

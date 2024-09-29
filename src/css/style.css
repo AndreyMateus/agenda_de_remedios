@@ -5,7 +5,6 @@
 }
 
 /* Desabilitar a seleção de conteúdo */
-select,
 body {
     -webkit-user-select: none;
     /* Safari/Chrome */

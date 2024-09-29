@@ -1,3 +1,6 @@
+import "../css/style.css";
+import "../css/add-remedie.css";
+
 document.getElementById('btn-add').addEventListener("click", insertFormOnHtml);
 
 function insertFormOnHtml() {
