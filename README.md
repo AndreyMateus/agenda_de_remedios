@@ -9,7 +9,9 @@ A intenção é que você não precise ficar adicionando os MESMOS DADOS, imagin
 
 
 **Funcionalidades:**
-Um Clique Segurando em cima qualquer card: abre o formulário de inserção de um remédio tomado, esse formulário terá seus campos preenchidos com o CARD em que você manteve o dedo pressionado.
-Dois Cliques consecutivos: Pop up para remoção do card de remédio.
+
+**Um Clique Segurando em cima qualquer card**: abre o formulário de inserção de um remédio tomado, esse formulário terá seus campos preenchidos com o CARD em que você manteve o dedo pressionado.
+
+**Dois Cliques consecutivos**: Pop up para remoção do card de remédio.
 
 **Link do Projeto Online:** [Clique aqui](https://agendaremedios.pages.dev/)
